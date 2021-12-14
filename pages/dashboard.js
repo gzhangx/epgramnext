@@ -1,11 +1,6 @@
 
 import { useEffect, useState } from 'react/cjs/react.development';
-import {
-  Container, Row, Col, Form, Input, Button, Navbar, Nav,
-  NavbarBrand, NavLink, NavItem, UncontrolledDropdown,
-  DropdownToggle, DropdownMenu, DropdownItem,
-  Accordion ,
-} from 'react-bootstrap';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -59,7 +54,21 @@ export default function MainDashboard(props) {
   const { state, setMainState } = props;
   const [pageState, setPageState] = useState({
     sideBarComponentExpanded: false,
+    sideBarPagesExpanded: false,
   });
+  const getSideBarKey = name => `sideBar${name}Expanded`;
+  const toggleSideBar = name => {
+    const key = getSideBarKey(name);
+    const val = pageState[key];
+    setPageState({
+      ...pageState,
+      [key]: !val,
+    })
+  };
+  const getSideBarState = name => {
+    const key = getSideBarKey(name);
+    return pageState[key];
+  }
   const defData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
@@ -86,38 +95,7 @@ export default function MainDashboard(props) {
         right: 25,
         top: 25,
         bottom: 0
-      }
-    },
-    scales: {
-      xAxis: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxis: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          // Include a dollar sign in the ticks
-          callback: function (value, index, values) {
-            return '$' + number_format(value);
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
+      }    
     },
     legend: {
       display: false
@@ -179,21 +157,18 @@ export default function MainDashboard(props) {
 
             <li className="nav-item">
             <a className={              
-              pageState.sideBarComponentExpanded ? "nav-link" :"nav-link collapsed"
+              getSideBarState('Component') ? "nav-link" :"nav-link collapsed"
             } href="#" data-toggle="collapse" data-target="#collapseTwo"
               aria-expanded="true" aria-controls="collapseTwo"
               onClick={e => {
-                setPageState({
-                  ...pageState,
-                  sideBarComponentExpanded: !pageState.sideBarComponentExpanded
-                });
+                toggleSideBar('Component');                
               }}
             >
                 <i className="fas fa-fw fa-cog"></i>
                 <span>Components</span>
               </a>
             <div id="collapseTwo" className={
-              pageState.sideBarComponentExpanded?"collapse show":"collapse"
+              getSideBarState('Component')?"collapse show":"collapse"
             } aria-labelledby="headingTwo" data-parent="#accordionSidebar"
               >
                 <div className="bg-white py-2 collapse-inner rounded">
