@@ -1,7 +1,11 @@
-import Head from 'next/head'
-import Link from 'next/link'
 
 import { useEffect, useState } from 'react/cjs/react.development';
+import {
+  Container, Row, Col, Form, Input, Button, Navbar, Nav,
+  NavbarBrand, NavLink, NavItem, UncontrolledDropdown,
+  DropdownToggle, DropdownMenu, DropdownItem,
+  Accordion ,
+} from 'react-bootstrap';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -53,6 +57,9 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 export default function MainDashboard(props) {
   const { state, setMainState } = props;
+  const [pageState, setPageState] = useState({
+    sideBarComponentExpanded: false,
+  });
   const defData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [{
@@ -146,14 +153,7 @@ export default function MainDashboard(props) {
   return (
     
     <div id="page-top">
-        <main>
-          <h1 className="title">
-            <Link href="/equipments/list">Equipment List</Link>
-          </h1>
-        </main>
-
-        <div id="wrapper">
-
+        <div id="wrapper">              
           <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -178,12 +178,24 @@ export default function MainDashboard(props) {
             </div>
 
             <li className="nav-item">
-              <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
+            <a className={              
+              pageState.sideBarComponentExpanded ? "nav-link" :"nav-link collapsed"
+            } href="#" data-toggle="collapse" data-target="#collapseTwo"
+              aria-expanded="true" aria-controls="collapseTwo"
+              onClick={e => {
+                setPageState({
+                  ...pageState,
+                  sideBarComponentExpanded: !pageState.sideBarComponentExpanded
+                });
+              }}
+            >
                 <i className="fas fa-fw fa-cog"></i>
                 <span>Components</span>
               </a>
-              <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseTwo" className={
+              pageState.sideBarComponentExpanded?"collapse show":"collapse"
+            } aria-labelledby="headingTwo" data-parent="#accordionSidebar"
+              >
                 <div className="bg-white py-2 collapse-inner rounded">
                   <h6 className="collapse-header">Custom Components:</h6>
                   <a className="collapse-item" href="buttons.html">Buttons</a>
@@ -237,13 +249,13 @@ export default function MainDashboard(props) {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="charts.html">
+              <a className="nav-link" href="#">
                 <i className="fas fa-fw fa-chart-area"></i>
                 <span>Charts</span></a>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="tables.html">
+              <a className="nav-link" href="#">
                 <i className="fas fa-fw fa-table"></i>
                 <span>Tables</span></a>
             </li>
@@ -257,7 +269,7 @@ export default function MainDashboard(props) {
             <div className="sidebar-card d-none d-lg-flex">
               <img className="sidebar-card-illustration mb-2" src="/img/undraw_rocket.svg" alt="..." layout='fixed' width={100} height={100} />
               <p className="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-              <a className="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+              <a className="btn btn-success btn-sm" href="#">Upgrade to Pro!</a>
             </div>
 
           </ul>
