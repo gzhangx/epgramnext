@@ -13,7 +13,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
-
+import { PageNavTab} from '../components/page/navTab';
 
 ChartJS.register(
   CategoryScale,
@@ -25,6 +25,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -52,10 +53,11 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 export default function MainDashboard(props) {
   const { state, setMainState } = props;
-  const [pageState, setPageState] = useState({
+  const pstate = useState({
     sideBarComponentExpanded: false,
-    sideBarPagesExpanded: false,
+    sideBarUtilitiesExpanded: false,
   });
+  const [pageState, setPageState] = pstate;
   const getSideBarKey = name => `sideBar${name}Expanded`;
   const toggleSideBar = name => {
     const key = getSideBarKey(name);
@@ -158,8 +160,7 @@ export default function MainDashboard(props) {
             <li className="nav-item">
             <a className={              
               getSideBarState('Component') ? "nav-link" :"nav-link collapsed"
-            } href="#" data-toggle="collapse" data-target="#collapseTwo"
-              aria-expanded="true" aria-controls="collapseTwo"
+            } href="#" data-toggle="collapse"
               onClick={e => {
                 toggleSideBar('Component');                
               }}
@@ -167,10 +168,7 @@ export default function MainDashboard(props) {
                 <i className="fas fa-fw fa-cog"></i>
                 <span>Components</span>
               </a>
-            <div id="collapseTwo" className={
-              getSideBarState('Component')?"collapse show":"collapse"
-            } aria-labelledby="headingTwo" data-parent="#accordionSidebar"
-              >
+            <div id="collapseTwo" className={getSideBarState('Component')?"collapse show":"collapse"} >
                 <div className="bg-white py-2 collapse-inner rounded">
                   <h6 className="collapse-header">Custom Components:</h6>
                   <a className="collapse-item" href="buttons.html">Buttons</a>
@@ -178,7 +176,28 @@ export default function MainDashboard(props) {
                 </div>
               </div>
             </li>
-
+            
+          
+          <PageNavTab name="Utilities"
+            pstate={pstate}
+            header={
+              <>
+                <a>
+                <i className="fas fa-fw fa-wrench"></i>
+                <span>Utilities</span>                
+                </a>
+              </>
+            }
+            body={
+              <>
+                <h6 className="collapse-header">Custom Utilities:</h6>
+                <a className="collapse-item" href="utilities-color.html">Colors</a>
+                <a className="collapse-item" href="utilities-border.html">Borders</a>
+                <a className="collapse-item" href="utilities-animation.html">Animations</a>
+                <a className="collapse-item" href="utilities-other.html">Other</a>
+              </>
+            }
+          ></PageNavTab>
             <li className="nav-item">
               <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                 aria-expanded="true" aria-controls="collapseUtilities">
