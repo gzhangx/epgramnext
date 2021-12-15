@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react/cjs/react.development';
 import {MainSideBar} from '../components/page/sidebar.js'
 import {EarningsGraph, RevenueSourceGraph } from '../components/page/earningsGraph'
 import { TopBar } from '../components/page/topbar'
-
+import { Footer } from '../components/page/pageFooter'
 export default function MainDashboard(props) {
   const { state, setMainState } = props;
   const pstate = useState({
@@ -335,13 +335,7 @@ export default function MainDashboard(props) {
 
           </div>
 
-          <footer className="sticky-footer bg-white">
-            <div className="container my-auto">
-              <div className="copyright text-center my-auto">
-                <span>Copyright &copy; Equipment Gram 2021</span>
-              </div>
-            </div>
-          </footer>
+          <Footer/>
 
         </div>
 
