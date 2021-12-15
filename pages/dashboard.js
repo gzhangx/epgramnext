@@ -1,55 +1,8 @@
 
 import { useEffect, useState } from 'react/cjs/react.development';
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Line, Pie } from 'react-chartjs-2';
-import {MainSideBar} from '../components/page/sidebar'
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-function number_format(number, decimals, dec_point, thousands_sep) {
-  // *     example: number_format(1234.56, 2, ',', ' ');
-  // *     return: '1 234,56'
-  number = (number + '').replace(',', '').replace(' ', '');
-  var n = !isFinite(+number) ? 0 : +number,
-    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-    s = '',
-    toFixedFix = function (n, prec) {
-      var k = Math.pow(10, prec);
-      return '' + Math.round(n * k) / k;
-    };
-  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-  if (s[0].length > 3) {
-    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-  }
-  if ((s[1] || '').length < prec) {
-    s[1] = s[1] || '';
-    s[1] += new Array(prec - s[1].length + 1).join('0');
-  }
-  return s.join(dec);
-}
+import {MainSideBar} from '../components/page/sidebar.js'
+import {EarningsGraph, RevenueSourceGraph } from '../components/page/earningsGraph'
 
 export default function MainDashboard(props) {
   const { state, setMainState } = props;
@@ -59,65 +12,6 @@ export default function MainDashboard(props) {
   });
   //const [pageState, setPageState] = pstate;
   
-  const defData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-      label: "Earnings",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0.05)",
-      borderColor: "rgba(78, 115, 223, 1)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointBorderColor: "rgba(78, 115, 223, 1)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
-    }],
-  };
-  const defLineChartOpts = {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function (tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-        }
-      }
-    }
-  };
-  const [lineChartData, setLineChartData] = useState(defData);
-  const [lineChartOptions, setlineChartOptions] = useState(defLineChartOpts)
-  useEffect(() => {
-    setLineChartData(defData);
-    setlineChartOptions(defLineChartOpts)
-  }, []);
   return (
     
     <div id="page-top">
@@ -429,7 +323,7 @@ export default function MainDashboard(props) {
                     </div>
                     <div className="card-body">
                       <div className="chart-area">
-                        <Line data={lineChartData} options={defLineChartOpts} ></Line>
+                        <EarningsGraph/>
                       </div>
                     </div>
                   </div>
@@ -457,31 +351,7 @@ export default function MainDashboard(props) {
                     </div>
                     <div className="card-body">
                       <div className="chart-pie pt-4 pb-2">
-                        <Pie data={{
-                          labels: ["Direct", "Referral", "Social"],
-                          datasets: [{
-                            data: [55, 30, 15],
-                            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                            hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-                            hoverBorderColor: "rgba(234, 236, 244, 1)",
-                          }],
-                        }} options={{
-                          maintainAspectRatio: false,
-                          tooltips: {
-                            backgroundColor: "rgb(255,255,255)",
-                            bodyFontColor: "#858796",
-                            borderColor: '#dddfeb',
-                            borderWidth: 1,
-                            xPadding: 15,
-                            yPadding: 15,
-                            displayColors: false,
-                            caretPadding: 10,
-                          },
-                          legend: {
-                            display: false
-                          },
-                          cutoutPercentage: 80,
-                        }}></Pie>
+                        <RevenueSourceGraph/>
                       </div>
                       <div className="mt-4 text-center small">
                         <span className="mr-2">
