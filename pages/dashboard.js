@@ -156,27 +156,23 @@ export default function MainDashboard(props) {
             <div className="sidebar-heading">
               Interface
             </div>
-
-            <li className="nav-item">
-            <a className={              
-              getSideBarState('Component') ? "nav-link" :"nav-link collapsed"
-            } href="#" data-toggle="collapse"
-              onClick={e => {
-                toggleSideBar('Component');                
-              }}
-            >
+           
+          <PageNavTab name="Components"
+            pstate={pstate}
+            header={
+              <>
                 <i className="fas fa-fw fa-cog"></i>
                 <span>Components</span>
-              </a>
-            <div id="collapseTwo" className={getSideBarState('Component')?"collapse show":"collapse"} >
-                <div className="bg-white py-2 collapse-inner rounded">
-                  <h6 className="collapse-header">Custom Components:</h6>
-                  <a className="collapse-item" href="buttons.html">Buttons</a>
-                  <a className="collapse-item" href="cards.html">Cards</a>
-                </div>
-              </div>
-            </li>
-            
+              </>
+            }
+            body={
+              <>
+                <h6 className="collapse-header">Custom Components:</h6>
+                <a className="collapse-item" href="buttons.html">Buttons</a>
+                <a className="collapse-item" href="cards.html">Cards</a>
+              </>
+            }
+          ></PageNavTab>
           
           <PageNavTab name="Utilities"
             pstate={pstate}
