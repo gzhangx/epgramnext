@@ -38,7 +38,7 @@ export default function MainDashboard(props) {
 
                 <BoardItemHalfSmall title="Earnings (Monthly)" value="$40,000" iconName="fa-calendar" />
                 <BoardItemHalfSmall title="Earnings (Annual)" mainClsName='border-left-success'
-                  textClsName='text-success'
+                  textClsName ='text-success'
                   value="$215,000" iconName="fa-dollar-sign" />
 
                 <div className="col-xl-3 col-md-6 mb-4">
