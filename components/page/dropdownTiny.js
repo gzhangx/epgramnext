@@ -4,6 +4,9 @@ export default function DropdownTiny(props) {
     const className = `dropdown-menu dropdown-menu-right shadow animated--fade-in ${state && 'show'}`;
     return <div className="dropdown no-arrow">
         <a className="dropdown-toggle" href="#" role="button"
+            onBlur={
+                ()=>setState(false)
+            }
             onClick={e => {
                 e.preventDefault();
                 setState(!state);
