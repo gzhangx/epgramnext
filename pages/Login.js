@@ -1,9 +1,10 @@
 export default function Login(props) {
     const { state, setMainState } = props;
+    const userInfo = state?.userInfo || {};
     const updateUser = () => {
         setMainState({
             ...state,
-            userInfo: { ...state.userInfo },
+            userInfo: { ...userInfo },
         })
     }
     return (<div className="bg-gradient-primary">
@@ -28,9 +29,9 @@ export default function Login(props) {
                                                 <input type="email" className="form-control form-control-user"
                                                     id="exampleInputEmail" aria-describedby="emailHelp"
                                                     placeholder="Enter Email Address..."
-                                                    value={state.userInfo.username}
+                                                    value={userInfo.username}
                                                     onChange={e => {
-                                                        state.userInfo.username = e.target.value;
+                                                        userInfo.username = e.target.value;
                                                         updateUser();
                                                     }}
                                                 />
@@ -38,9 +39,9 @@ export default function Login(props) {
                                             <div className="form-group">
                                                 <input type="password" className="form-control form-control-user"
                                                     id="exampleInputPassword" placeholder="Password"
-                                                    value={state.userInfo.password}
+                                                    value={userInfo.password}
                                                     onChange={e => {
-                                                        state.userInfo.password = e.target.value;
+                                                        userInfo.password = e.target.value;
                                                         updateUser();
                                                     }}
                                                 />
@@ -55,7 +56,7 @@ export default function Login(props) {
                                             <a href="index.html" className="btn btn-primary btn-user btn-block"
                                                 onClick={(e => {
                                                     e.preventDefault();
-                                                    state.userInfo.isLoggedIn = true;
+                                                    userInfo.isLoggedIn = true;
                                                     updateUser();
                                                 })}
                                             >

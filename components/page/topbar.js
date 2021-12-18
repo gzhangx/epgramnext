@@ -132,7 +132,7 @@ export function TopBar(props) {
             <li className="nav-item dropdown no-arrow">
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span className="mr-2 d-none d-lg-inline text-gray-600 small">{state.userInfo.username}</span>
+                    <span className="mr-2 d-none d-lg-inline text-gray-600 small">{state?.userInfo?.username}</span>
                     <img className="img-profile rounded-circle"
                         src="img/undraw_profile.svg" />
                 </a>

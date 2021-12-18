@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 
 import {MainSideBar} from '../components/page/sidebar.js'
 import { TopBar } from '../components/page/topbar'
