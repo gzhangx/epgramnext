@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-
+import { withRouter } from 'next/router'
 import {MainSideBar} from '../components/page/sidebar.js'
 import { TopBar } from '../components/page/topbar'
 import { Footer } from '../components/page/pageFooter'
@@ -8,7 +8,7 @@ import BoardItemHalfSmall from '../components/page/boardItemHaflSmall'
 import DemoRow from '../components/page/demorow.js'
 import DemoGraphicsRow from '../components/page/demoGraphicsRow'
 
-export default function MainDashboard(props) {
+export default withRouter(function MainDashboard(props) {
   const { state, setMainState } = props;
   const pstate = useState({
     sideBarComponentExpanded: false,
@@ -39,8 +39,8 @@ export default function MainDashboard(props) {
               <div className="row">
                 <BoardItemHalfSmall title="Earnings (Monthly)" value="$40,000" iconName="fa-calendar" />
                 <BoardItemHalfSmall title="Earnings (Annual)" mainClsName='border-left-success'
-                  textClsName ='text-success'
-                  value="$215,000" iconName="fa-dollar-sign" />                
+                  textClsName='text-success'
+                  value="$215,000" iconName="fa-dollar-sign" />
 
                 <BoardItemHalfSmall title="Tasks" mainClsName='border-left-info'
                   textClsName='text-info'
@@ -59,14 +59,14 @@ export default function MainDashboard(props) {
                         </div>
                       </div>
                     </>
-                  } iconName="fa-clipboard-list" />                
+                  } iconName="fa-clipboard-list" />
 
                 <BoardItemHalfSmall title="Pending Requests" mainClsName='border-left-warning'
                   textClsName='text-warning'
-                  value="18" iconName="fa-comments" />                 
+                  value="18" iconName="fa-comments" />
               </div>
 
-              <DemoGraphicsRow/>
+              <DemoGraphicsRow />
 
               <DemoRow></DemoRow>
 
@@ -74,7 +74,7 @@ export default function MainDashboard(props) {
 
           </div>
 
-          <Footer/>
+          <Footer />
 
         </div>
 
@@ -105,4 +105,4 @@ export default function MainDashboard(props) {
       </div>
     </div>
   )
-}
+});

@@ -1,24 +1,37 @@
-
+import react, {useState} from 'react';
 import { useRouter } from 'next/router'
 import * as api from '../components/api';
+import { Dialog } from '../components/dialog';
 
 export default function Login(props) {
     const router = useRouter();
-    const { state, setMainState } = props;
-    const userInfo = state?.userInfo || {};
+
+    const [dialogInfo, setDialogInfo] = useState({
+        show: false
+    });
+    const [state, setMainState] = useState({
+            username: '',
+            password:'',
+    });
+
     const updateUser = () => {
         setMainState({
             ...state,
-            userInfo: { ...userInfo },
         })
     }
 
     const doLogin = () => {
         console.log('doLogin')
-        console.log(userInfo)
-        api.login(userInfo.username, userInfo.password).then(res => {
+        console.log(state)
+        api.login(state.username, state.password).then(res => {
             if (!res.error) {
                 router.push('/dashboard');
+            } else {
+                setDialogInfo({
+                    show: true,
+                    title: 'Login Error',
+                    body: res.error
+                })
             }
             console.log(res);
         })
@@ -43,21 +56,21 @@ export default function Login(props) {
                                         <form className="user">
                                             <div className="form-group">
                                                 <input type="email" className="form-control form-control-user"
-                                                    id="exampleInputEmail" aria-describedby="emailHelp"
+                                                    name="exampleInputEmail" aria-describedby="emailHelp"
                                                     placeholder="Enter Email Address..."
-                                                    value={userInfo.username}
+                                                    value={state.username}
                                                     onChange={e => {
-                                                        userInfo.username = e.target.value;
+                                                        state.username = e.target.value;
                                                         updateUser();
                                                     }}
                                                 />
                                             </div>
                                             <div className="form-group">
                                                 <input type="password" className="form-control form-control-user"
-                                                    id="exampleInputPassword" placeholder="Password"
-                                                    value={userInfo.password}
+                                                    name="exampleInputPassword" placeholder="Password"
+                                                    value={state.password}
                                                     onChange={e => {
-                                                        userInfo.password = e.target.value;
+                                                        state.password = e.target.value;
                                                         updateUser();
                                                     }}
                                                 />
@@ -72,7 +85,7 @@ export default function Login(props) {
                                             <a href="index.html" className="btn btn-primary btn-user btn-block"
                                                 onClick={(e => {
                                                     e.preventDefault();
-                                                    userInfo.isLoggedIn = true;
+                                                    state.isLoggedIn = true;
                                                     updateUser();
                                                     doLogin();
                                                 })}
@@ -105,5 +118,6 @@ export default function Login(props) {
             </div>
 
         </div>
+        <Dialog dialogInfo={dialogInfo} setDialogInfo={setDialogInfo}></Dialog>
     </div>)
 }
