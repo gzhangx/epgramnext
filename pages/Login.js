@@ -1,3 +1,6 @@
+import request from 'superagent';
+import * as api from '../components/api';
+
 export default function Login(props) {
     const { state, setMainState } = props;
     const userInfo = state?.userInfo || {};
@@ -7,6 +10,14 @@ export default function Login(props) {
             userInfo: { ...userInfo },
         })
     }
+
+    const doLogin = () => {
+        console.log('doLogin')
+        return api.login({
+            username: state.username,
+            password: state.password,
+        })
+    };
     return (<div className="bg-gradient-primary">
 
         <div className="container">
@@ -58,6 +69,7 @@ export default function Login(props) {
                                                     e.preventDefault();
                                                     userInfo.isLoggedIn = true;
                                                     updateUser();
+                                                    doLogin();
                                                 })}
                                             >
                                                 Login

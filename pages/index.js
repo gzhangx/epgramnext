@@ -10,8 +10,8 @@ export default function Home1() {
             isLoggedIn: false,
         }
     });
-    if (mainState.userInfo.isLoggedIn)
-        return <Home state={mainState} setMainState={setMainState}></Home>
-    else 
-        return <Login state={mainState} setMainState={setMainState}></Login>
+    //if (mainState.userInfo.isLoggedIn)
+    //    return <Home state={mainState} setMainState={setMainState}></Home>
+    //else 
+    return <Login state={mainState} setMainState={setMainState}></Login>
 }
