@@ -1,7 +1,9 @@
-import request from 'superagent';
+
+import { useRouter } from 'next/router'
 import * as api from '../components/api';
 
 export default function Login(props) {
+    const router = useRouter();
     const { state, setMainState } = props;
     const userInfo = state?.userInfo || {};
     const updateUser = () => {
@@ -13,9 +15,12 @@ export default function Login(props) {
 
     const doLogin = () => {
         console.log('doLogin')
-        return api.login({
-            username: state.username,
-            password: state.password,
+        console.log(userInfo)
+        api.login(userInfo.username, userInfo.password).then(res => {
+            if (!res.error) {
+                router.push('/dashboard');
+            }
+            console.log(res);
         })
     };
     return (<div className="bg-gradient-primary">
