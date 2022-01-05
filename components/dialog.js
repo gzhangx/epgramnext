@@ -2,7 +2,9 @@ import react, {useState} from "react";
 export function Dialog(props) {    
     const { dialogInfo, setDialogInfo, children } = props;
     const { title, body } = dialogInfo;
-    const dspClassName = `modal ${dialogInfo.show ? ' modal-show' : ''}`;
+    console.log('dialog info')
+    console.log(dialogInfo)
+    const dspClassName = `${dialogInfo.show ? 'modal fade show' : 'modal'}`;
     return <div className={dspClassName} tabindex="-1" role="dialog">
         <div className="modal-dialog" role="document">
             <div className="modal-content">

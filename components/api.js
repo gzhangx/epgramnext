@@ -13,9 +13,9 @@ export async function login(username, password) {
         if (resb.error) {
             return resb;
         }
-        localStorage.setItem('login.hash', resb.hash);
-        localStorage.setItem('login.nonce', resb.nonce);
-        return resb;
+        localStorage.setItem('login.hash', body.hash);
+        localStorage.setItem('login.nonce', body.nonce);
+        return body;
     })
 }
 

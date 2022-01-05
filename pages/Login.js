@@ -37,7 +37,7 @@ export default function Login(props) {
         })
     };
     return (<div className="bg-gradient-primary">
-
+        <Dialog dialogInfo={dialogInfo} setDialogInfo={setDialogInfo}></Dialog>
         <div className="container">
 
             <div className="row justify-content-center">
@@ -117,7 +117,6 @@ export default function Login(props) {
 
             </div>
 
-        </div>
-        <Dialog dialogInfo={dialogInfo} setDialogInfo={setDialogInfo}></Dialog>
+        </div>        
     </div>)
 }
