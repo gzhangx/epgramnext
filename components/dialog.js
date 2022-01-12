@@ -4,14 +4,19 @@ export function Dialog(props) {
     const { title, body } = dialogInfo;
     console.log('dialog info')
     console.log(dialogInfo)
-    const dspClassName = `${dialogInfo.show ? 'modal fade show' : 'modal'}`;
+    const onClose = () => {
+        setDialogInfo({
+            show: false,
+        })
+    };
+    const dspClassName = `modal ${dialogInfo.show ? ' modal-show ' : 'modal'}`;
     return <div className={dspClassName} tabindex="-1" role="dialog">
         <div className="modal-dialog" role="document">
             <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title">{ title }</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" onClick={onClose}>&times;</span>
                     </button>
                 </div>
                 {
@@ -22,11 +27,7 @@ export function Dialog(props) {
                         <p>{body}</p>
                     </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => {
-                                setDialogInfo({
-                                    show:false,
-                                })
-                            }}>Close</button>
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={onClose}>Close</button>
                         </div>
                     </>
                 }

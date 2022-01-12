@@ -5658,6 +5658,14 @@ a.close.disabled {
   outline: 0;
 }
 
+.modal-show
+{
+    visibility:visible;
+    display: block;
+    background-color: rgba(169, 169, 169, 0.8);
+    transition: opacity 0.2s linear; 
+} 
+
 .modal-dialog {
   position: relative;
   width: auto;
