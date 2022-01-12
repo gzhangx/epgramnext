@@ -7,7 +7,9 @@ export function Dialog(props) {
     const onClose = () => {
         setDialogInfo({
             show: false,
-        })
+        });
+        if (props.onClose) props.onClose();
+        if (dialogInfo.onClose) dialogInfo.onClose();
     };
     const dspClassName = `modal ${dialogInfo.show ? ' modal-show ' : 'modal'}`;
     return <div className={dspClassName} tabindex="-1" role="dialog">

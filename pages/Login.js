@@ -2,6 +2,7 @@ import react, {useState} from 'react';
 import { useRouter } from 'next/router'
 import * as api from '../components/api';
 import { Dialog } from '../components/dialog';
+import Link from 'next/link';
 
 export default function Login(props) {
     const router = useRouter();
@@ -105,7 +106,9 @@ export default function Login(props) {
                                             <a className="small" href="forgot-password.html">Forgot Password?</a>
                                         </div>
                                         <div className="text-center">
-                                            <a className="small" href="register.html">Create an Account!</a>
+                                            <Link href="register">
+                                                <a className="small" href="register.html">Create an Account!</a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

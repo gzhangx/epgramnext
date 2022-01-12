@@ -28,3 +28,17 @@ export function getLoginInfo() {
         nonce,
     }
 }
+
+export async function registerUser({ username, firstName, lastName }) {
+    console.log('in register')
+    return await request.post(url).send({
+        username,
+        firstName,
+        lastName,
+        action: 'registerUser',
+    }).then(resb => {
+        const body = resb.body;
+        console.log(body);        
+        return body;
+    })
+}
