@@ -1,6 +1,8 @@
 const url = 'https://13syzqrgph.execute-api.us-east-2.amazonaws.com/prod/loginClient'
 import * as request from 'superagent';
 
+export const emailRegx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 export async function login(username, password) {
     console.log('in login')
     return await request.post(url).send({
@@ -36,6 +38,20 @@ export async function registerUser({ username, firstName, lastName }) {
         firstName,
         lastName,
         action: 'registerUser',
+    }).then(resb => {
+        const body = resb.body;
+        console.log(body);        
+        return body;
+    })
+}
+
+
+
+export async function resetPassword({ username }) {
+    console.log('in reset')
+    return await request.post(url).send({
+        username,        
+        action: 'resetPassword',
     }).then(resb => {
         const body = resb.body;
         console.log(body);        
