@@ -1,6 +1,8 @@
+import Link from 'next/link'
 import { PageNavTab } from './navTab';
 export function MainSideBar(props) {
     const { pstate } = props;
+    const [state, setState] = pstate;
     return <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -35,29 +37,38 @@ export function MainSideBar(props) {
             body={
                 <>
                     <h6 className="collapse-header">Custom Components:</h6>
-                    <a className="collapse-item" href="buttons.html">Buttons</a>
-                    <a className="collapse-item" href="cards.html">Cards</a>
+                    <a className="collapse-item" href="#">Developers</a>
+                    <a className="collapse-item" href="#">Admins</a>
                 </>
             }
         ></PageNavTab>
 
-        <PageNavTab name="Utilities"
+        <PageNavTab name="GF Reports"
             pstate={pstate}
             header={
                 <>
                     <a>
                         <i className="fas fa-fw fa-wrench"></i>
-                        <span>Utilities</span>
+                        <span>GF Reports</span>
                     </a>
                 </>
             }
             body={
                 <>
-                    <h6 className="collapse-header">Custom Utilities:</h6>
-                    <a className="collapse-item" href="utilities-color.html">Colors</a>
-                    <a className="collapse-item" href="utilities-border.html">Borders</a>
-                    <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                    <a className="collapse-item" href="utilities-other.html">Other</a>
+                    <h6 className="collapse-header">Gravity Reports:</h6>
+                    {
+                        (state.mainReports || []).map(r => {
+                            return <a className="collapse-item" href="#"
+                                onClick={e => {
+                                    e.preventDefault();
+                                    setState(prev => ({
+                                        ...prev,
+                                        currentSelectedGfReport: r.id,
+                                    }));
+                                }}
+                            >{r.title.length > 24 ? r.title.substr(0, 19) + '...' : r.title} ({ r.entries})</a>
+                        })
+                    }                    
                 </>
             }
         ></PageNavTab>
@@ -79,13 +90,18 @@ export function MainSideBar(props) {
             body={
                 <>
                     <h6 className="collapse-header">Login Screens:</h6>
-                    <a className="collapse-item" href="login.html">Login</a>
+                    <Link href="Login">
+                    <a className="collapse-item" href="#">Login</a>
+                    </Link>
+                    <Link href="register">
                     <a className="collapse-item" href="register.html">Register</a>
+                    </Link>
+                    <Link href="forget">
                     <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
+                    </Link>
                     <div className="collapse-divider"></div>
                     <h6 className="collapse-header">Other Pages:</h6>
-                    <a className="collapse-item" href="404.html">404 Page</a>
-                    <a className="collapse-item" href="blank.html">Blank Page</a>
+                    <a className="collapse-item" href="#">Demo</a>
                 </>
             }
         ></PageNavTab>

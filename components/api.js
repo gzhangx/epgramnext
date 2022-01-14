@@ -58,3 +58,12 @@ export async function resetPassword({ username }) {
         return body;
     })
 }
+
+export async function getEpFfForms() {
+    return await request.post(url).send({
+        action: 'epApiQuery',
+    }).then(resb => {
+        const body = Object.values(resb.body);
+        return body;
+    })
+}

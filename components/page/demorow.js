@@ -1,4 +1,30 @@
-export default function DemoRow() {
+export default function DemoRow(props) {
+    console.log('demorow mainstate')
+    console.log(props.mainState)
+    const mainState = props.mainState;
+    const formId = mainState.currentSelectedGfReport;
+
+    return <div className="row">
+
+        <div className="col-lg-12 mb-4">
+            <div className="card shadow mb-4">
+                <div className="card-header py-3">
+                    <h6 className="m-0 font-weight-bold text-primary">Projects</h6>
+                </div>
+                <div className="card-body">
+                    <h4 className="small font-weight-bold">Server Migration id={ formId} <span
+                        className="float-right">20%</span></h4>                    
+                </div>
+            </div>
+
+            <div className="row">
+                                
+            </div>
+
+        </div>
+    </div>
+}
+ function DemoRowOrig() {
     return <div className="row">
 
         <div className="col-lg-6 mb-4">

@@ -7,15 +7,31 @@ import { Footer } from '../components/page/pageFooter'
 import BoardItemHalfSmall from '../components/page/boardItemHaflSmall'
 import DemoRow from '../components/page/demorow.js'
 import DemoGraphicsRow from '../components/page/demoGraphicsRow'
+import { getEpFfForms } from '../components/api';
 
 export default withRouter(function MainDashboard(props) {
-  const { state, setMainState } = props;
+  //const { state, setMainState } = props;  
   const pstate = useState({
     sideBarComponentExpanded: false,
     sideBarUtilitiesExpanded: false,
+    userInfo: {},
+    mainReports: [],
+    currentSelectedGfReport: null,
   });
+  const [state, setMainState] = pstate;
   //const [pageState, setPageState] = pstate;
   
+  useEffect(() => {
+    getEpFfForms().then(res => {
+      if (res.error) {
+        return console.log(`error ${res.error}`);
+      }
+      setMainState(prev=>({
+        ...prev,
+        mainReports: res,
+      }))
+    });
+  },[]);
   return (
     
     <div id="page-top">
@@ -68,7 +84,7 @@ export default withRouter(function MainDashboard(props) {
 
               <DemoGraphicsRow />
 
-              <DemoRow></DemoRow>
+              <DemoRow mainState={state}></DemoRow>
 
             </div>
 
