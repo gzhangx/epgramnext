@@ -28,7 +28,7 @@ export default function DemoRow(props) {
             console.log(data);
             setState(prev => ({
                 ...prev,
-                data: data.entries,
+                data: data.entries || [],
                 total: data.total_count,
             }));
         };
