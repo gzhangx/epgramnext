@@ -67,3 +67,14 @@ export async function getEpFfForms() {
         return body;
     })
 }
+
+export async function getEpFfFormData(formId, currentPage=0) {
+    return await request.post(url).send({
+        action: 'epApiQuery',
+        formId,
+        currentPage,
+    }).then(resb => {
+        const body = resb.body;
+        return body;
+    })
+}

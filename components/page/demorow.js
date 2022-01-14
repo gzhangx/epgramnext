@@ -1,20 +1,81 @@
+import react, { useState, useEffect } from "react";
+import { getEpFfFormData, getEpFfForms } from '../api';
 export default function DemoRow(props) {
     console.log('demorow mainstate')
     console.log(props.mainState)
     const mainState = props.mainState;
-    const formId = mainState.currentSelectedGfReport;
+    const { id, title } = mainState.currentSelectedGfReport || {};
 
+    const [state, setState] = useState({
+        formDef: {},
+        data: [],
+        pageSize: 20,
+        curPage: 1,
+        total: 0,
+    });
+
+    useEffect(() => {
+        const getData = async () => {
+            const formDef = await getEpFfFormData(id);
+            setState(prev => ({
+                ...prev,
+                formDef,
+            }));
+            //fields: type, id, label, inputs(id, label)
+            console.log('formdef');
+            console.log(formDef);
+            const data = await getEpFfFormData(id, 1);
+            console.log(data);
+            setState(prev => ({
+                ...prev,
+                data: data.entries,
+                total: data.total_count,
+            }));
+        };
+        getData();
+    }, [id]);
     return <div className="row">
 
         <div className="col-lg-12 mb-4">
-            <div className="card shadow mb-4">
+            <div className="card shadow mb-4" style={
+                {
+                    'overflow-x': 'auto',
+                    color: 'blue'
+                }
+            }>
                 <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">Projects</h6>
+                    <h6 className="m-0 font-weight-bold text-primary">Report {title}</h6>
                 </div>
-                <div className="card-body">
-                    <h4 className="small font-weight-bold">Server Migration id={ formId} <span
-                        className="float-right">20%</span></h4>                    
-                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            {
+                                state.formDef.fields && state.formDef.fields.map(f => {
+                                    return <th scope="col">{f.label}</th>        
+                                })
+                            }                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            state.data.map(row => {
+                                return <tr>
+                                    {
+                                        state.formDef.fields && state.formDef.fields.map(f => {
+                                            return <td>{row[f.id]}</td>
+                                        })
+                                    }
+                                </tr>;
+                            })                            
+                        }
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>                        
+                    </tbody>
+                </table>
             </div>
 
             <div className="row">
@@ -24,6 +85,8 @@ export default function DemoRow(props) {
         </div>
     </div>
 }
+
+
  function DemoRowOrig() {
     return <div className="row">
 

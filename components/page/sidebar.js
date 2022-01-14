@@ -63,7 +63,7 @@ export function MainSideBar(props) {
                                     e.preventDefault();
                                     setState(prev => ({
                                         ...prev,
-                                        currentSelectedGfReport: r.id,
+                                        currentSelectedGfReport: r,
                                     }));
                                 }}
                             >{r.title.length > 24 ? r.title.substr(0, 19) + '...' : r.title} ({ r.entries})</a>
