@@ -37,6 +37,15 @@ export default function Login(props) {
             console.log(res);
         })
     };
+
+    const commingSoon = e => {
+        e.preventDefault();
+        setDialogInfo({
+            show: true,
+            title: 'Not implemented',
+            body: 'Comming Soon'
+        })
+    }
     return (<div className="bg-gradient-primary">
         <Dialog dialogInfo={dialogInfo} setDialogInfo={setDialogInfo}></Dialog>
         <div className="container">
@@ -94,10 +103,14 @@ export default function Login(props) {
                                                 Login
                                             </a>
                                             <hr />
-                                            <a href="index.html" className="btn btn-google btn-user btn-block">
+                                            <a href="index.html" className="btn btn-google btn-user btn-block"
+                                                onClick={commingSoon}
+                                            >
                                                 <i className="fab fa-google fa-fw"></i> Login with Google
                                             </a>
-                                            <a href="index.html" className="btn btn-facebook btn-user btn-block">
+                                            <a href="#" className="btn btn-facebook btn-user btn-block"
+                                                onClick={commingSoon}
+                                            >
                                                 <i className="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                             </a>
                                         </form>
@@ -107,7 +120,7 @@ export default function Login(props) {
                                         </div>
                                         <div className="text-center">
                                             <Link href="register">
-                                                <a className="small" href="register.html">Create an Account!</a>
+                                                <a className="small" href="#">Create an Account!</a>
                                             </Link>
                                         </div>
                                     </div>

@@ -51,6 +51,16 @@ export default function register() {
             });            
         })
     }
+
+    const commingSoon = e => {
+        e.preventDefault();
+        setDialogInfo({
+            show: true,
+            title: 'Not implemented',
+            body: 'Comming Soon'
+        })
+    }
+
     return <div className="container">
         <Dialog dialogInfo={dialogInfo} setDialogInfo={setDialogInfo} ></Dialog>
         <div className="card o-hidden border-0 shadow-lg my-5">
@@ -95,10 +105,13 @@ export default function register() {
                                     Register Account
                                 </a>
                                 <hr />
-                                <a href="index.html" className="btn btn-google btn-user btn-block">
+                                <a href="index.html" className="btn btn-google btn-user btn-block"
+                                onClick={commingSoon}>
                                     <i className="fab fa-google fa-fw"></i> Register with Google
                                 </a>
-                                <a href="index.html" className="btn btn-facebook btn-user btn-block">
+                                <a href="index.html" className="btn btn-facebook btn-user btn-block"
+                                    onClick={commingSoon}
+                                >
                                     <i className="fab fa-facebook-f fa-fw"></i> Register with Facebook
                                 </a>
                             </form>

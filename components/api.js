@@ -1,4 +1,4 @@
-const url = 'https://tpgnxoyspk.execute-api.us-east-2.amazonaws.com/prod/loginClient'
+const url = 'https://13syzqrgph.execute-api.us-east-2.amazonaws.com/prod/loginClient'
 import * as request from 'superagent';
 
 export async function login(username, password) {
